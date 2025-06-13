@@ -1,5 +1,4 @@
 import sqlite3
-from base_modules.game_state import *
 
 
 class DBConnector:
@@ -9,8 +8,10 @@ class DBConnector:
         self.connection = sqlite3.connect('database.db')
         self.cursor = self.connection.cursor()
         print('DBConnector: Connection with DB opened.')
+        self.drop_table_card_states()
 
         # создание таблицы с комбинациями, если её нет в базе
+        """
         all_tables = self.get_all_tables()
         all_tables_names = list()
         for table in all_tables:
@@ -20,6 +21,7 @@ class DBConnector:
             print('DBConnector: card_states table created.')
         else:
             print('DBConnector: card_states table already exists.')
+        """
 
     def create_table_card_states(self):
         self.cursor.execute(
@@ -62,6 +64,7 @@ class DBConnector:
 
     def drop_table_card_states(self):
         self.cursor.execute("DROP TABLE IF EXISTS card_states")
+        print('DBConnector: card_states table dropped.')
 
     def get_all_tables(self):
         self.cursor.execute("""select * from sqlite_master

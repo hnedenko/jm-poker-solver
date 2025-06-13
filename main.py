@@ -1,2 +1,5 @@
+from db_generator.db_connector import *
+
+
 if __name__ == "__main__":
-    pass
+    db_connector = DBConnector()

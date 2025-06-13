@@ -41,7 +41,10 @@ class Card:
             self.value = random.choice(list(Value))
 
     def __str__(self):
-        str_state = '(' + str(self.suit) + ' ' + str(self.value) + ')'
+        if self.suit is not None and self.value is not None:
+            str_state = '(' + str(self.suit) + ' ' + str(self.value) + ')'
+        else:
+            str_state = ''
 
         return str_state
 

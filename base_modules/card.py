@@ -32,11 +32,22 @@ class Value(enum.Enum):
 
 
 class Card:
-    def __init__(self, suit=random.choice(list(Suit)), value=random.choice(list(Value))):
-        self.suit = suit
-        self.value = value
+    def __init__(self, generation_mode="none"):
+        if generation_mode == "none":
+            self.suit = None
+            self.value = None
+        elif generation_mode == "random":
+            self.suit = random.choice(list(Suit))
+            self.value = random.choice(list(Value))
 
     def __str__(self):
         str_state = '(' + str(self.suit) + ' ' + str(self.value) + ')'
 
         return str_state
+
+    def code(self):
+        if self.suit is not None and self.value is not None:
+            code = int(self.suit.value)*int(self.value.value)
+        else:
+            code = 0
+        return code

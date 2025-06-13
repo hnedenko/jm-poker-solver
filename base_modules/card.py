@@ -1,6 +1,6 @@
 import enum
 import random
-
+import itertools
 
 class Suit(enum.Enum):
     spades = 7 # пики
@@ -32,13 +32,19 @@ class Value(enum.Enum):
 
 
 class Card:
-    def __init__(self, generation_mode="none"):
+    def __init__(self, generation_mode="none", code=None):
         if generation_mode == "none":
             self.suit = None
             self.value = None
         elif generation_mode == "random":
             self.suit = random.choice(list(Suit))
             self.value = random.choice(list(Value))
+        elif generation_mode == "by_one_code":
+            for s, v in itertools.product(set(Suit), set(Value)):
+                if code % s.value == 0:
+                    self.suit = s
+                if code % v.value == 0:
+                    self.value = v
 
     def __str__(self):
         if self.suit is not None and self.value is not None:
